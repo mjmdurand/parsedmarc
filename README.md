@@ -41,15 +41,16 @@ Dans **API permissions** :
 
 ```bash
 # Générer clé + certificat auto-signé (2 ans)
-openssl req -x509 -newkey rsa:2048 -keyout certs/parsedmarc-key.pem \
-  -out certs/parsedmarc-cert.pem -days 730 -nodes \
+openssl req -x509 -newkey rsa:2048 -keyout parsedmarc/certs/parsedmarc-key.pem \
+  -out parsedmarc/certs/parsedmarc-cert.pem -days 730 -nodes \
   -subj "/CN=parsedmarc"
 
 # Fichier combiné requis par azure.identity
-cat certs/parsedmarc-key.pem certs/parsedmarc-cert.pem > certs/parsedmarc-combined.pem
+cat parsedmarc/certs/parsedmarc-key.pem parsedmarc/certs/parsedmarc-cert.pem \
+  > parsedmarc/certs/parsedmarc-combined.pem
 ```
 
-Dans **Certificates & secrets > Certificates** : uploader `certs/parsedmarc-cert.pem`.
+Dans **Certificates & secrets > Certificates** : uploader `parsedmarc/certs/parsedmarc-cert.pem`.
 
 ### 4. Restreindre l'accès à la shared mailbox (Exchange Online)
 
@@ -87,16 +88,16 @@ cp .env.example .env
 ### 2. Créer parsedmarc.ini
 
 ```bash
-cp parsedmarc.ini.example parsedmarc.ini
+cp parsedmarc/parsedmarc.ini.example parsedmarc/parsedmarc.ini
 # Remplir tenant_id, client_id, mailbox
 ```
 
 ### 3. Déposer le certificat
 
 ```bash
-mkdir -p certs
-# Copier parsedmarc-key.pem et parsedmarc-cert.pem dans certs/
-cat certs/parsedmarc-key.pem certs/parsedmarc-cert.pem > certs/parsedmarc-combined.pem
+mkdir -p parsedmarc/certs
+# Copier parsedmarc-key.pem et parsedmarc-cert.pem dans parsedmarc/certs/
+cat parsedmarc/certs/parsedmarc-key.pem parsedmarc/certs/parsedmarc-cert.pem > parsedmarc/certs/parsedmarc-combined.pem
 ```
 
 ### 4. Démarrer
@@ -126,11 +127,11 @@ open http://localhost:3000
 | Fichier | Rôle | Commité |
 |---|---|---|
 | `docker-compose.yml` | Stack complète | ✅ |
-| `parsedmarc.ini` | Config avec credentials | ❌ gitignored |
-| `parsedmarc.ini.example` | Template sans credentials | ✅ |
-| `.env` | Secrets (tenant, client, passwords) | ❌ gitignored |
+| `parsedmarc/parsedmarc.ini` | Config avec credentials | ❌ gitignored |
+| `parsedmarc/parsedmarc.ini.example` | Template sans credentials | ✅ |
+| `parsedmarc/certs/` | Clé privée + certificat Azure AD | ❌ gitignored |
+| `.env` | Secrets (Grafana password) | ❌ gitignored |
 | `.env.example` | Template `.env` | ✅ |
-| `certs/` | Clé privée + certificat Azure AD | ❌ gitignored |
 | `grafana/dashboards/` | Dashboard Grafana patché | ❌ gitignored |
 | `AGENTS.md` | Documentation technique détaillée | ✅ |
 

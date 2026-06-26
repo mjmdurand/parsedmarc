@@ -2,17 +2,9 @@ services:
 
   # ─── parsedmarc ────────────────────────────────────────────────────
   parsedmarc:
-    build: .
+    build: ./parsedmarc
     restart: unless-stopped
     command: sh -c "parsedmarc -c /etc/parsedmarc.ini; sleep 21600"
-    volumes:
-      - ./parsedmarc.ini:/etc/parsedmarc.ini:ro
-      - ./certs:/etc/parsedmarc/certs:ro
-    environment:
-      # Surcharge des valeurs de parsedmarc.ini — mettre les vraies valeurs dans .env
-      - PARSEDMARC_MSGRAPH_TENANT_ID=${PARSEDMARC_MSGRAPH_TENANT_ID}
-      - PARSEDMARC_MSGRAPH_CLIENT_ID=${PARSEDMARC_MSGRAPH_CLIENT_ID}
-      - PARSEDMARC_MSGRAPH_MAILBOX=${PARSEDMARC_MSGRAPH_MAILBOX}
     depends_on:
       elasticsearch:
         condition: service_healthy
@@ -39,14 +31,12 @@ services:
 
   # ─── Grafana ───────────────────────────────────────────────────────
   grafana:
-    image: grafana/grafana:10.4.18
+    build: ./grafana
     restart: unless-stopped
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
       - GF_INSTALL_PLUGINS=elasticsearch
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/dashboards:/var/lib/grafana/dashboards
       - grafana_data:/var/lib/grafana
     ports:
       - "0.0.0.0:${GRAFANA_PORT:-3000}:3000"

@@ -35,10 +35,10 @@ docker compose restart parsedmarc
 | Fichier | Rôle |
 |---|---|
 | `docker-compose.yml` | Stack complète |
-| `parsedmarc.ini` | Config parsedmarc (auth MS Graph, ES, mailbox) |
-| `requirements.txt` | Version parsedmarc épinglée |
-| `.env` | Secrets (tenant_id, client_id, mailbox) |
-| `certs/parsedmarc-combined.pem` | Certificat Azure AD (clé privée + cert) |
+| `parsedmarc/parsedmarc.ini` | Config parsedmarc (auth MS Graph, ES, mailbox) |
+| `parsedmarc/requirements.txt` | Version parsedmarc épinglée |
+| `parsedmarc/certs/parsedmarc-combined.pem` | Certificat Azure AD (clé privée + cert) |
+| `.env` | Secrets (Grafana password) |
 | `grafana/provisioning/datasources/elasticsearch.yml` | Datasources Grafana |
 | `grafana/dashboards/DMARC_Reports.json` | Dashboard Grafana (patché) |
 

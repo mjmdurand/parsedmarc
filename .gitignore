@@ -1,11 +1,11 @@
 # Secrets
 .env
-parsedmarc.ini
 
-# Certificats et clés privées
-certs/
+# parsedmarc — config et certificats (COPY au build, jamais commités)
+parsedmarc/parsedmarc.ini
+parsedmarc/certs/
 
-# Dashboard téléchargé (regénéré par setup.sh)
+# Dashboard téléchargé/patché (regénéré manuellement)
 grafana/dashboards/
 
 # Python
