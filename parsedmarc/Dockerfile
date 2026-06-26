@@ -7,8 +7,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY parsedmarc.ini /etc/parsedmarc.ini
 COPY certs/parsedmarc-combined.pem /etc/parsedmarc/certs/parsedmarc-combined.pem
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
 
 USER nobody
 
-ENTRYPOINT ["parsedmarc"]
-CMD ["-c", "/etc/parsedmarc.ini"]
+ENTRYPOINT ["/run.sh"]

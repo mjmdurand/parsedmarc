@@ -4,7 +4,6 @@ services:
   parsedmarc:
     build: ./parsedmarc
     restart: unless-stopped
-    command: sh -c "parsedmarc -c /etc/parsedmarc.ini; sleep 21600"
     depends_on:
       elasticsearch:
         condition: service_healthy
