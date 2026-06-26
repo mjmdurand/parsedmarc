@@ -3,7 +3,7 @@
 ## Architecture
 
 ```
-dmarc-reports@example.com (O365 shared mailbox)
+dmarc@example.com (O365 shared mailbox)
         ↓ MS Graph API (Certificate auth)
     parsedmarc
         ↓
@@ -14,15 +14,14 @@ dmarc-reports@example.com (O365 shared mailbox)
 
 ## Authentification Azure AD
 
-- **App** : `parsedmarc` (Entra ID, tenant Solveet)
+- **App** : app registration Entra ID (voir README pour la procédure)
 - **Tenant ID** : dans `.env` (`PARSEDMARC_MSGRAPH_TENANT_ID`)
 - **Client ID** : dans `.env` (`PARSEDMARC_MSGRAPH_CLIENT_ID`)
 - **Auth method** : `Certificate` (pas `client_credentials` — valeur invalide pour mailsuite)
 - **Certificat** : `certs/parsedmarc-combined.pem` (clé privée + cert concaténés)
-- **Thumbprint Azure** : `XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX`
 - **Permission API** : `Mail.ReadWrite` Application (pas `Mail.Read` — parsedmarc crée un dossier Archive)
-- **Application Access Policy** : `RestrictAccess` sur le groupe `parsedmarc-scope@example.com`
-  - Le groupe contient uniquement `dmarc-reports@example.com`
+- **Application Access Policy** : `RestrictAccess` sur un mail-enabled security group
+  - Le groupe contient uniquement la shared mailbox DMARC
   - Policy Exchange Online, pas Entra ID
 
 ## Décisions et pièges connus

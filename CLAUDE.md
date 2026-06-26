@@ -1,6 +1,6 @@
-# solveet_dmarc — CLAUDE.md
+# parsedmarc — CLAUDE.md
 
-Déploiement parsedmarc pour la supervision DMARC du domaine example.com.
+Déploiement parsedmarc pour la supervision DMARC via O365 shared mailbox.
 
 ## Stack
 
@@ -23,8 +23,8 @@ docker compose logs -f grafana
 # Rebuild parsedmarc (après mise à jour requirements.txt)
 docker compose build parsedmarc && docker compose up -d parsedmarc
 
-# Vérifier les index Elasticsearch
-curl -s http://localhost:9200/_cat/indices?v
+# Vérifier les index Elasticsearch (port non exposé sur l'hôte)
+docker compose exec elasticsearch curl -s http://localhost:9200/_cat/indices?v
 
 # Forcer un run immédiat de parsedmarc
 docker compose restart parsedmarc
@@ -44,5 +44,5 @@ docker compose restart parsedmarc
 
 ## Accès
 
-- Grafana : http://localhost:3000
-- Elasticsearch : http://localhost:9200 (localhost uniquement)
+- Grafana : http://localhost:3000 (port configurable via `GRAFANA_PORT` dans `.env`)
+- Elasticsearch : interne uniquement (pas de port exposé sur l'hôte)
