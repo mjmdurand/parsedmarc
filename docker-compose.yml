@@ -1,0 +1,66 @@
+services:
+
+  # ─── parsedmarc ────────────────────────────────────────────────────
+  parsedmarc:
+    build: .
+    restart: unless-stopped
+    command: sh -c "parsedmarc -c /etc/parsedmarc.ini; sleep 21600"
+    volumes:
+      - ./parsedmarc.ini:/etc/parsedmarc.ini:ro
+      - ./certs:/etc/parsedmarc/certs:ro
+    environment:
+      # Surcharge des valeurs de parsedmarc.ini — mettre les vraies valeurs dans .env
+      - PARSEDMARC_MSGRAPH_TENANT_ID=${PARSEDMARC_MSGRAPH_TENANT_ID}
+      - PARSEDMARC_MSGRAPH_CLIENT_ID=${PARSEDMARC_MSGRAPH_CLIENT_ID}
+      - PARSEDMARC_MSGRAPH_MAILBOX=${PARSEDMARC_MSGRAPH_MAILBOX}
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  # ─── Elasticsearch ─────────────────────────────────────────────────
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.19.7
+    restart: unless-stopped
+    environment:
+      - discovery.type=single-node
+      - cluster.name=parsedmarc
+      - xpack.security.enabled=false
+      - xpack.license.self_generated.type=basic
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+    volumes:
+      - elasticsearch_data:/usr/share/elasticsearch/data
+    ports:
+      - "${ES_HOST:-127.0.0.1}:${ES_PORT:-9200}:9200"
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - curl -s http://localhost:9200/_cluster/health | grep -q '"status":"green"\|"status":"yellow"'
+      interval: 10s
+      timeout: 10s
+      retries: 24
+
+  # ─── Grafana ───────────────────────────────────────────────────────
+  grafana:
+    image: grafana/grafana:10.4.18
+    restart: unless-stopped
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_INSTALL_PLUGINS=elasticsearch
+    volumes:
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+      - grafana_data:/var/lib/grafana
+    ports:
+      - "0.0.0.0:${GRAFANA_PORT:-3000}:3000"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -sf http://localhost:3000/api/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  elasticsearch_data:
+  grafana_data:

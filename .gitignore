@@ -1,0 +1,13 @@
+# Secrets
+.env
+
+# Certificats et clés privées
+certs/
+
+# Dashboard téléchargé (regénéré par setup.sh)
+grafana/dashboards/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
