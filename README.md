@@ -1,11 +1,11 @@
-# parsedmarc — Supervision DMARC example.com
+# parsedmarc — Supervision DMARC
 
 Stack de supervision DMARC basée sur [parsedmarc](https://github.com/domainaware/parsedmarc), déployée via Docker Compose.
 
 ## Architecture
 
 ```
-dmarc-reports@example.com (O365 shared mailbox)
+dmarc@example.com (O365 shared mailbox)
         ↓ MS Graph API (Certificate auth)
     parsedmarc
         ↓
@@ -68,7 +68,7 @@ docker compose restart parsedmarc
 # Vérifier les index Elasticsearch
 curl -s http://localhost:9200/_cat/indices?v
 
-# Grafana
+# Grafana (port configurable via GRAFANA_PORT dans .env)
 open http://localhost:3000
 ```
 
