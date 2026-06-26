@@ -220,7 +220,6 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "SPF Alignment",
-      "transparent": true,
       "type": "piechart",
       "valueName": "total",
       "options": {
@@ -319,7 +318,6 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "DKIM Alignment",
-      "transparent": true,
       "type": "piechart",
       "valueName": "total",
       "options": {
@@ -423,7 +421,6 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "DMARC Passage",
-      "transparent": true,
       "type": "piechart",
       "valueName": "total",
       "options": {
