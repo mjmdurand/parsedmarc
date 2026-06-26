@@ -99,13 +99,7 @@ mkdir -p certs
 cat certs/parsedmarc-key.pem certs/parsedmarc-cert.pem > certs/parsedmarc-combined.pem
 ```
 
-### 4. Télécharger le dashboard Grafana
-
-```bash
-./setup.sh
-```
-
-### 5. Démarrer
+### 4. Démarrer
 
 ```bash
 docker compose up -d --build
@@ -137,7 +131,7 @@ open http://localhost:3000
 | `.env` | Secrets (tenant, client, passwords) | ❌ gitignored |
 | `.env.example` | Template `.env` | ✅ |
 | `certs/` | Clé privée + certificat Azure AD | ❌ gitignored |
-| `grafana/dashboards/` | Dashboard (généré par `setup.sh`) | ❌ gitignored |
+| `grafana/dashboards/` | Dashboard Grafana patché | ❌ gitignored |
 | `AGENTS.md` | Documentation technique détaillée | ✅ |
 
 ## Cycle de traitement
