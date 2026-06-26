@@ -134,4 +134,5 @@ parsedmarc interroge la shared mailbox via MS Graph toutes les 6h, indexe les ra
 ## Voir aussi
 
 - [AGENTS.md](AGENTS.md) — décisions techniques, pièges connus, détail des patches Grafana
-- [parsedmarc docs](https://domainaware.github.io/parsedmarc/)
+- [parsedmarc — GitHub](https://github.com/domainaware/parsedmarc)
+- [parsedmarc — Documentation](https://domainaware.github.io/parsedmarc/)
