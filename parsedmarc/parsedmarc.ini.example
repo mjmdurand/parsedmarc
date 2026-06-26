@@ -5,7 +5,10 @@ save_smtp_tls = True
 
 [msgraph]
 auth_method = Certificate
+tenant_id = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+client_id = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 certificate_path = /etc/parsedmarc/certs/parsedmarc-combined.pem
+mailbox = dmarc-reports@example.com
 folder = Inbox
 watch = True
 delete = False
