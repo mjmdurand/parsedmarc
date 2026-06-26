@@ -5,9 +5,6 @@
 parsedmarc/parsedmarc.ini
 parsedmarc/certs/
 
-# Dashboard téléchargé/patché (regénéré manuellement)
-grafana/dashboards/
-
 # Python
 __pycache__/
 *.pyc

@@ -124,7 +124,7 @@ open http://localhost:3000
 | `parsedmarc/certs/` | Clé privée + certificat Azure AD | ❌ gitignored |
 | `.env` | Secrets (Grafana password) | ❌ gitignored |
 | `.env.example` | Template `.env` | ✅ |
-| `grafana/dashboards/` | Dashboard Grafana patché | ❌ gitignored |
+| `grafana/dashboards/` | Dashboard Grafana patché | ✅ |
 | `AGENTS.md` | Documentation technique détaillée | ✅ |
 
 ## Cycle de traitement
