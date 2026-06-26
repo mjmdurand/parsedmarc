@@ -1,5 +1,6 @@
 # Secrets
 .env
+parsedmarc.ini
 
 # Certificats et clés privées
 certs/

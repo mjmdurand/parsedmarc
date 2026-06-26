@@ -1,0 +1,18 @@
+[general]
+save_aggregate = True
+save_forensic = True
+save_smtp_tls = True
+
+[msgraph]
+auth_method = Certificate
+certificate_path = /etc/parsedmarc/certs/parsedmarc-combined.pem
+folder = Inbox
+watch = True
+delete = False
+
+[elasticsearch]
+hosts = http://elasticsearch:9200
+ssl = False
+monthly_indexes = True
+number_of_shards = 1
+number_of_replicas = 0
