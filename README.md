@@ -114,8 +114,8 @@ docker compose logs -f parsedmarc
 # Forcer un run immédiat
 docker compose restart parsedmarc
 
-# Vérifier les index Elasticsearch
-curl -s http://localhost:9200/_cat/indices?v
+# Vérifier les index Elasticsearch (depuis le container)
+docker compose exec elasticsearch curl -s http://localhost:9200/_cat/indices?v
 
 # Grafana (port configurable via GRAFANA_PORT dans .env)
 open http://localhost:3000
