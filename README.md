@@ -82,7 +82,7 @@ Test-ApplicationAccessPolicy -AppId "<CLIENT_ID>" `
 
 ```bash
 cp .env.example .env
-# Remplir PARSEDMARC_MSGRAPH_TENANT_ID, CLIENT_ID, MAILBOX, GRAFANA_PASSWORD
+# Remplir les valeurs
 ```
 
 ### 2. Créer parsedmarc.ini
@@ -92,15 +92,7 @@ cp parsedmarc/parsedmarc.ini.example parsedmarc/parsedmarc.ini
 # Remplir tenant_id, client_id, mailbox
 ```
 
-### 3. Déposer le certificat
-
-```bash
-mkdir -p parsedmarc/certs
-# Copier parsedmarc-key.pem et parsedmarc-cert.pem dans parsedmarc/certs/
-cat parsedmarc/certs/parsedmarc-key.pem parsedmarc/certs/parsedmarc-cert.pem > parsedmarc/certs/parsedmarc-combined.pem
-```
-
-### 4. Démarrer
+### 3. Démarrer
 
 ```bash
 docker compose up -d --build
